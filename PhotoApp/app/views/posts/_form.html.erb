@@ -1,0 +1,19 @@
+<%= form_for @post, html: { multipart: true } do |f| %>
+
+  <%= f.label :user %><br />
+  <%= f.collection_select :user_id, @users, :id, :name, prompt: true %><br />
+
+  <%= f.label :caption %><br />
+  <%= f.text_field :caption, class: "form-control" %><br />
+
+  <%= f.file_field :post_img %><br />
+
+  <%= f.label :tag %>
+ <p>#<%= f.text_field :tag, class: "form-control" %><br /></p>
+
+  <%= f.label :location %><br />
+  <%= f.text_field :location, class: "form-control" %><br />
+
+  <%= f.submit %>
+<% end %>
+

@@ -1,0 +1,9 @@
+<h1>User#show</h1>
+<p>Find me in app/views/posts/show.html.erb</p>
+
+<%= @user.name %> <br>
+<%= @user.email %> <br>
+
+<% @user.posts.each do |post| %>
+  <%= image_tag post.post_img.url(:medium) %>
+<% end %>

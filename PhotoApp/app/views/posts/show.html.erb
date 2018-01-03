@@ -1,0 +1,14 @@
+<h1>Posts#show</h1>
+<p>Find me in app/views/posts/show.html.erb</p>
+
+<%= @post.caption %> <br>
+
+<%= link_to @post.location.name, location_path(@post.location_id) %> <br>
+
+<p>#<%= link_to @post.tag.name, tag_path(@post.tag_id) %></p> <br>
+
+<%= image_tag @post.post_img.url(:medium) %> <br>
+<%= @post.user.name %> <br>
+
+<%= render 'reviews/form' %>
+
