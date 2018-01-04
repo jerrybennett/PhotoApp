@@ -3,7 +3,9 @@
 
 <%= @user.name %> <br>
 <%= @user.email %> <br>
+<%= @user.posts.length %> <br>
+
 
 <% @user.posts.each do |post| %>
-  <%= image_tag post.post_img.url(:medium) %>
+  <%=link_to (image_tag post.post_img.url(:medium)), post_path(post) %>
 <% end %>

@@ -1,14 +1,54 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
 
-<%= @post.caption %> <br>
+<div class="container">
+  <h1>Posts#show</h1>
+  <p>Find me in app/views/posts/show.html.erb</p>
 
-<%= link_to @post.location.name, location_path(@post.location_id) %> <br>
+  <div class="row">
+    <div class="col-md-12">
 
-<p>#<%= link_to @post.tag.name, tag_path(@post.tag_id) %></p> <br>
+      <%= image_tag @post.post_img.url(:medium), class: "photo img-responsive img-rounded" %>
 
-<%= image_tag @post.post_img.url(:medium) %> <br>
-<%= @post.user.name %> <br>
+    </div>
+  </div>
 
-<%= render 'reviews/form' %>
+  <div class="row">
+    <div class="col-md-12">
 
+      <p class="well text-center caption"><%= @post.caption %></p>
+      <p class="text-right user-name">Poster: <%= link_to @post.user.name, user_path(@post.user) %></p>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 text-center">
+
+      <p>#<%= link_to @post.tag.name, tag_path(@post.tag_id) %></p>
+    </div>
+
+    <div class="col-sm-6 text-center">
+
+      <p>Location: <%= link_to @post.location.name, location_path(@post.location_id) %>
+      </p>
+
+    </div>
+  </div>
+
+  <% sum = 0 %>
+  <% @reviews.each do |rev| %>
+    <% if rev.like == true %>
+      <% sum += 1 %>
+    <% end %>
+  <% end %>
+  <p>Number of likes: <%= sum %></p>
+
+  <p>Comments:</p>
+  <ul>
+    <% @reviews.each do |rev| %>
+      <li><%= rev.user.name %> - <%= rev.comment %></li>
+    <% end %>
+  </ul>
+
+  <%= render 'reviews/form' %>
+
+</div>

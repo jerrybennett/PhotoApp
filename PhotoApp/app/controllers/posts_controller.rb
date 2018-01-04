@@ -13,9 +13,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @review = Review.new
+    @reviews = @post.reviews
     @users = User.all
-    @reviews = Review.all
   end
 
   def create
@@ -33,6 +32,10 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    @user = @post.user 
+    @tag = @post.tag
+    @location = @post.location
   end
 
   def update

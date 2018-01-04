@@ -1,14 +1,21 @@
-<%= form_for @review, html: { multipart: true } do |f| %>
+<div class="container">
+  
+  <%= form_for ([@post, @post.reviews.build]), html: { multipart: true } do |f| %>
 
-  <%= f.label :like %><br />
-  <%= f.check_box :like, class: "form-control" %><br />
+    <div>
+      <%= f.label :like %>
+      <%= f.check_box :like %><br />
+    </div>
 
-  <%= f.label :comment %><br />
-  <%= f.text_field :comment, class: "form-control" %><br />
+    <%= f.label :comment %><br />
+    <%= f.text_field :comment, class: "form-control" %><br />
+  
+    <%= f.label :user %>
+    <%= f.collection_select :user_id, @users, :id, :name, prompt: true %><br />
+  
+    <%= f.submit %>
 
-  <%= f.label :user %><br />
-  <%= f.collection_select :user_id, @users, :id, :name, prompt: true %><br />
+  <% end %>
 
-  <%= f.submit %>
-<% end %>
+</div>
 
