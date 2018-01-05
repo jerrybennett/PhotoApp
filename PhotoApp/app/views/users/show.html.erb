@@ -1,11 +1,37 @@
-<h1>User#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div class="row text-center">
+  <div class="col col-sm-3">
+    <h4><%= @user.name %></h4>
+  </div>
+  <div class="col col-sm-3">
+    <h4><%= @user.email %></h4>
+  </div>
+  <div class="col col-sm-3">
+    <h4>Number of Posts: <%= @user.count_posts %></h4>
+  </div>
+  <div class="col col-sm-3">
+    <% if logged_in? %>
+      <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
 
-<%= @user.name %> <br>
-<%= @user.email %> <br>
-<%= @user.posts.length %> <br>
+<div>
+  <ul>
+    <li>Avg likes per post: <%= @user.avg_likes_per_post%></li>
+    <li>You liked <%= @user.count_posts_you_like%> photo(s)</li>
+    <li>Favorite Tag(s): <%= @user.favorite_tag %></li>
+    <li>Most Frequent Location(s): <%= @user.favorite_location%></li>
+  </ul>
+</div>
 
+<div class="row">
+  <% @user.posts.each do |post| %>
+    <div class="col-md-4 text-center b-margin">
+      <%=link_to (image_tag post.post_img.url(:medium)), post_path(post) %>
+    </div>
+  <% end %>
+</div>
 
-<% @user.posts.each do |post| %>
-  <%=link_to (image_tag post.post_img.url(:medium)), post_path(post) %>
+<% if logged_in? && @user.id == current_user.id %>
+  <%= button_to "Edit User", edit_user_path(@user), :method => "get", class: "btn btn-primary b-margin" %>
 <% end %>

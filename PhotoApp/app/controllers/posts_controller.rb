@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
 
   def new
-    @post = Post.new
-    @users = User.all
-    @locations = Location.all
-    @tags = Tag.all
+    @post = current_user.posts.build
+    # @post = Post.new
+    # @users = User.all
+    # @locations = Location.all
+    # @tags = Tag.all
   end
 
   def index
@@ -18,7 +19,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
+    # @post = Post.new(post_params)
     @tag = Tag.find_or_create_by(name: params[:post][:tag])
     @post.tag_id = @tag.id 
     @location = Location.find_or_create_by(name: params[:post][:location])
@@ -39,9 +41,18 @@ class PostsController < ApplicationController
   end
 
   def update
+    @post = Post.find(params[:id])
+    @tag = Tag.find_or_create_by(name: params[:post][:tag])
+    @post.tag_id = @tag.id 
+    @location = Location.find_or_create_by(name: params[:post][:location])
+    @post.location_id = @location.id
+    @post.update(post_params)
+    redirect_to @post
   end
 
   def destroy
+    @post = Post.find(params[:id]).destroy
+    redirect_to user_path(current_user)
   end
 
   private

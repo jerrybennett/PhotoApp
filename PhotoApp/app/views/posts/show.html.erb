@@ -1,7 +1,4 @@
-
 <div class="container">
-  <h1>Posts#show</h1>
-  <p>Find me in app/views/posts/show.html.erb</p>
 
   <div class="row">
     <div class="col-md-12">
@@ -30,25 +27,27 @@
 
       <p>Location: <%= link_to @post.location.name, location_path(@post.location_id) %>
       </p>
-
+      <% if logged_in? && @post.user_id == current_user.id %>
+        <%= button_to "Edit Post", edit_post_path(@post), :method => "get", class: "btn btn-primary b-margin" %>
+      <% end %>
     </div>
   </div>
-
-  <% sum = 0 %>
-  <% @reviews.each do |rev| %>
-    <% if rev.like == true %>
-      <% sum += 1 %>
-    <% end %>
-  <% end %>
-  <p>Number of likes: <%= sum %></p>
+  
+  <p>Number of likes: <%= @post.count_likes %></p>
 
   <p>Comments:</p>
   <ul>
     <% @reviews.each do |rev| %>
       <li><%= rev.user.name %> - <%= rev.comment %></li>
+      <% if logged_in? && rev.user_id == current_user.id %>
+    <%= button_to "Edit Comment", edit_post_review_path(rev.user,rev), :method => "get", class: "btn btn-primary b-margin" %>
+     <%= link_to "Delete", [@post, rev], :method  => :delete, class: "btn btn-danger b-margin" %>
+      <% end %>
     <% end %>
   </ul>
 
-  <%= render 'reviews/form' %>
+  <% if logged_in? %>
+    <%= render 'reviews/form' %>
+  <% end %>
 
 </div>

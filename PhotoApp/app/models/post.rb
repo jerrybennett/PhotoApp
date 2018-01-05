@@ -7,6 +7,13 @@ class Post < ApplicationRecord
   validates_attachment_content_type :post_img, content_type: /\Aimage\/.*\z/
 
   def count_likes
-    self.reviews
+    sum = 0
+    self.reviews.each do |rev|
+      if rev.like
+        sum += 1
+      end
+    end
+    sum
   end
+
 end
