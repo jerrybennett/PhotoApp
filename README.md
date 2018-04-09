@@ -16,9 +16,10 @@ A user can sign up or log in to post, comment, and like photos just like Instagr
 Since this project does not come preloaded with images or content, you can customize it however you would like. In order to run the app please do the following:
 1. Fork or download
 2. Open the "PhotoApp" file in terminal
-2. Run `rake db:migrate` to set up the database
-3. Run `rails s` to start in browser
-4. "Sign up" to add content and checkout all features!
+3. Run `bundle install`
+4. Run `rake db:migrate` to set up the database
+5. Run `rails s` to start in browser
+6. "Sign up" to add content and checkout all features!
 
 ## License 
 The MIT License (MIT)
